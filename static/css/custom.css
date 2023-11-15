@@ -1,0 +1,16 @@
+#header-home {
+    background-image: url("/static/img/homepage_cover.png");
+  }
+
+  #header-list-books {
+    background-image: url("/static/img/books_background.jpg");
+  }
+
+.custom-link {
+  text-decoration: underline;
+  color: inherit; /* Use the default text color */
+}
+
+.custom-link:hover {
+    color: #007bff; /* Change the color on hover */
+}

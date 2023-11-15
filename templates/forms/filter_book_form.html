@@ -1,0 +1,135 @@
+<div id="filter-div" style="display: none;">
+    <div class="row">
+        <div class="heading-section ftco-animate" style="text-align: center;">
+            <h2 class="mb-4">Book FIltering</h2>
+        </div>
+        <div class="col-md-12 ftco-animate">
+            <div class="py-md-5">
+
+                <form action="{{ url_for('filtering') }}" method="POST" enctype="multipart/form-data">
+                    {{ form_filtering_book.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="title">{{ form_filtering_book.title.label }}</label>
+                                {{ form_filtering_book.title(class_="form-control") }}
+                                {% if form_filtering_book.title.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.title.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="author">{{ form_filtering_book.author.label }}</label>
+                                {{ form_filtering_book.author(class_="form-control") }}
+                                {% if form_filtering_book.author.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.author.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_1">{{ form_filtering_book.language_1.label }}</label>
+                                {{ form_filtering_book.language_1(class_="form-control") }}
+                                {% if form_filtering_book.language_1.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.language_1.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_2">{{ form_filtering_book.language_2.label }}</label>
+                                {{ form_filtering_book.language_2(class_="form-control") }}
+                                {% if form_filtering_book.language_2.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.language_2.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Language 3 -->
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_3">{{ form_filtering_book.language_3.label }}</label>
+                                {{ form_filtering_book.language_3(class_="form-control") }}
+                                {% if form_filtering_book.language_3.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.language_3.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Language 4 -->
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_4">{{ form_filtering_book.language_4.label }}</label>
+                                {{ form_filtering_book.language_4(class_="form-control") }}
+                                {% if form_filtering_book.language_4.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.language_4.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Language 5 -->
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_5">{{ form_filtering_book.language_5.label }}</label>
+                                {{ form_filtering_book.language_5(class_="form-control") }}
+                                {% if form_filtering_book.language_5.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.language_5.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="price">{{ form_filtering_book.price.label }}</label>
+                                {{ form_filtering_book.price(class_="form-control") }}
+                                {% if form_filtering_book.price.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_filtering_book.price.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        <input type="submit" value="Filter books">
+                    </p>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+<!--
+write here if you want to add css links only in this page
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', filename= 'qwer.css') }}"
+/>-->
+{% endblock %} {% block content %}
+
+<style>
+    #header-single-book {
+        background-image: url("{{ book.coverImg }}");
+    }
+</style>
+
+<header id="header-single-book" class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 col-xl-8 mx-auto position-relative">
+                <div class="site-heading">
+                    <h1 id="book-title">{{ book.title }}</h1><span class="subheading" id="book-author">{{ book.author }}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% if is_admin==1 %}
+<div class="container py-4 py-xl-5">
+    <div class="row">
+        <div class="col-md-10 offset-md-1 d-flex justify-content-center">
+            <div class="d-grid gap-2" style="margin-bottom: 20px; margin-right: 5px;">
+                <a id="delete-book-link" class="btn btn-danger btn-lg rounded-pill" href="{{ url_for('delete_book', book_id=book.bookId) }}">Delete Book</a>
+            </div>
+            <div class="d-grid gap-2" style="margin-bottom: 20px; margin-left: 5px;">
+                <button id="edit-book" class="btn btn-primary btn-lg rounded-pill">Edit Book</button>
+            </div>
+            <div class="d-grid gap-2" style="margin-bottom: 20px; margin-left: 5px;">
+                <a class="btn btn-success btn-lg rounded-pill" data-bs-toggle="modal" data-bs-target="#languageModal">
+                    Select Language
+                </a>
+            </div>
+        </div>  
+        {% include 'forms/edit_book.html' %} 
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-md-10 offset-md-1 d-flex justify-content-center">
+        <div class="d-grid gap-2" style="margin-bottom: 20px; margin-left: 5px;">
+            <a class="btn btn-success btn-lg rounded-pill" data-bs-toggle="modal" data-bs-target="#languageModal">
+                Select Language
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <h2 class="section-heading" id="book-description-title">Book Description</h2>
+                <p id="book-description">{{ book.description }}</p>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    function getTextFromIds() {
+        var idList = ["book-title", "book-author", "delete-book-link", "edit-book", "book-description-title", "book-description"];
+        var textData = {};
+
+        // Gather text content from elements with specific IDs
+        idList.forEach(function (elementId) {
+            var $element = $("#" + elementId);
+            var text = $element.text().trim();
+
+            if (text.length > 0) {
+                textData[elementId] = text;
+            }
+        });
+
+        return textData;
+    }
+
+    function change_page_texts(data) {
+
+        // Iterate over the keys in jsonData
+        $.each(data, function(key, value) {
+            // Update the content of the HTML element with the corresponding ID
+            $("#" + key).text(value);
+        });
+    }
+
+    function translateText(textData, sourceLanguage, selectedLanguage) {
+        fetch('http://127.0.0.1:5000/translate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({ "text": textData, "sourceLanguage": sourceLanguage, "selectedLanguage": selectedLanguage }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            change_page_texts(data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function fastTranslation(textData, sourceLanguage, selectedLanguage) {
+        fetch('http://127.0.0.1:5000/fast_translate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({ "text": textData, "sourceLanguage": sourceLanguage, "selectedLanguage": selectedLanguage }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            change_page_texts(data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to get the value of a cookie by name
+    function getCookie(cookieName) {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === cookieName) {
+                return decodeURIComponent(value);
+            }
+        }
+        return null;
+    }
+
+    // source language
+    const sourceLanguage = setCookie('source_language', 'english', 30000);
+
+    const selectedLanguage = getCookie('selectedLanguage');
+
+    // Use the value as needed
+    console.log('Selected language:', selectedLanguage);
+
+    var textData = getTextFromIds();
+
+    // fastTranslation(textData, sourceLanguage, selectedLanguage);
+    translateText(textData, sourceLanguage, selectedLanguage);
+    });
+</script>
+{% endblock %}

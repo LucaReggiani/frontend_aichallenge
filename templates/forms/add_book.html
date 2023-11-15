@@ -1,0 +1,216 @@
+<div id="add-div" style="display: none;">
+    <div class="row">
+        <div class="heading-section ftco-animate" style="text-align: center;">
+            <h2 class="mb-4">Add a new book</h2>
+        </div>
+        <div class="col-md-12 ftco-animate">
+            <div class="py-md-5">
+
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    {{ form_add_book.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="title">{{ form_add_book.title.label }}</label>
+                                {{ form_add_book.title(class_="form-control") }}
+                                {% if form_add_book.title.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.title.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="series">{{ form_add_book.series.label }}</label>
+                                {{ form_add_book.series(class_="form-control") }}
+                                {% if form_add_book.series.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.series.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="author">{{ form_add_book.author.label }}</label>
+                                {{ form_add_book.author(class_="form-control") }}
+                                {% if form_add_book.author.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.author.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="description">{{ form_add_book.description.label }}</label>
+                                {{ form_add_book.description(class_="form-control") }}
+                                {% if form_add_book.description.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.description.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_1">{{ form_add_book.language_1.label }}</label>
+                                {{ form_add_book.language_1(class_="form-control") }}
+                                {% if form_add_book.language_1.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.language_1.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_2">{{ form_add_book.language_2.label }}</label>
+                                {{ form_add_book.language_2(class_="form-control") }}
+                                {% if form_add_book.language_2.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.language_2.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_3">{{ form_add_book.language_3.label }}</label>
+                                {{ form_add_book.language_3(class_="form-control") }}
+                                {% if form_add_book.language_3.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.language_3.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_4">{{ form_add_book.language_4.label }}</label>
+                                {{ form_add_book.language_4(class_="form-control") }}
+                                {% if form_add_book.language_4.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.language_4.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="language_5">{{ form_add_book.language_5.label }}</label>
+                                {{ form_add_book.language_5(class_="form-control") }}
+                                {% if form_add_book.language_5.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.language_5.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>                 
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="pages">{{ form_add_book.pages.label }}</label>
+                                {{ form_add_book.pages(class_="form-control") }}
+                                {% if form_add_book.pages.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.pages.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="publisher">{{ form_add_book.publisher.label }}</label>
+                                {{ form_add_book.publisher(class_="form-control") }}
+                                {% if form_add_book.publisher.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.publisher.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Add other form fields -->
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="publishDate">{{ form_add_book.publishDate.label }}</label>
+                                {{ form_add_book.publishDate(class_="form-control") }}
+                                {% if form_add_book.publishDate.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.publishDate.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="coverImg">{{ form_add_book.coverImg.label }}</label>
+                                {{ form_add_book.coverImg(class_="form-control") }}
+                                {% if form_add_book.coverImg.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.coverImg.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Add other form fields -->
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="price">{{ form_add_book.price.label }}</label>
+                                {{ form_add_book.price(class_="form-control") }}
+                                {% if form_add_book.price.errors %}
+                                    <ul class="errors">
+                                        {% for error in form_add_book.price.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        <input type="submit" value="Add new Book">
+                    </p>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
