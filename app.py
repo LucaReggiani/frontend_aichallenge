@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, session
 import requests
 from forms.add_book_form import AddBookForm
 from forms.edit_book_form import EditBookForm
 from forms.filter_book_form import FilterBookForm
 from forms.login_form import LoginForm
 from forms.signup_form import SignupForm
+from forms.review_book_form import ReviewBookForm
 import json
 from flask import redirect, url_for
 from werkzeug.security import generate_password_hash
@@ -67,11 +68,10 @@ def book_details(id_book):
 
     if request.method == 'GET':
 
-        resp = requests.get(
-            f"http://127.0.0.1:5000/book_list/{id_book}"
-        )
+        # get book's information
+        response_get_book_details = requests.get(f"http://127.0.0.1:5000/book_list/{id_book}")
         # getting the API status code in orer to get if the request succeded
-        status_code = resp.status_code
+        status_code = response_get_book_details.status_code
 
         # checking the status code
         if str(status_code)[0] != '2':
@@ -79,9 +79,19 @@ def book_details(id_book):
             return render_template('books_list.html')
         
         # response payload extraction
-        data = resp.json()
+        data = response_get_book_details.json()
+
+        # book's page forms initialization
         form_edit_book = EditBookForm(obj=data)
-        return render_template('book_page.html', book=data, form_edit_book=form_edit_book, is_admin=is_admin)
+        form_review_book = ReviewBookForm()
+
+        # getting all book's reviews information
+        book_reviews = requests.get(f"http://127.0.0.1:5000/reviews/{id_book}")
+        book_reviews = book_reviews.json()
+
+        # Checking if the user il logged in
+        userId = session.get('userId', None)
+        return render_template('book_page.html', book=data, form_edit_book=form_edit_book, is_admin=is_admin, form_review_book=form_review_book, book_reviews=book_reviews, userId=userId)
     
     else:
         edited_book = request.form.to_dict(flat=False)
@@ -131,6 +141,28 @@ def update_order():
         return redirect(url_for('books_list'))
 
 
+@app.route('/user_review/<book_id>', methods=['POST'])
+def user_review(book_id):
+    request_form = request.form.to_dict(flat=False)
+    api_url = f"http://127.0.0.1:5000/reviews/{book_id}"
+
+    # Retrieve values from session
+    userId = session.get('userId', None)
+    # Include cookies in the JSON payload
+    data = {
+        "form_data": request_form,
+        "userId": userId,
+    }
+
+    response = requests.post(api_url, json=data)
+
+    # Check the response status
+    if response.status_code != 201:
+        pass
+        # message = response.content
+    return redirect(url_for('books_list'))
+
+
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
     email = session.get('email')
@@ -146,8 +178,6 @@ def user_login():
         
     else:
         request_form = request.form.to_dict(flat=False)
-        
-        
         api_url = 'http://127.0.0.1:5000/login'
 
         # Make a request to the external API and pass the data variable
@@ -209,5 +239,5 @@ def logout_user():
 
 if __name__ == '__main__':
     # set up the variable regarding the secret key in this app
-    app.config['SECRET_KEY'] = "SERET"
+    app.config['SECRET_KEY'] = "SECRET"
     app.run(debug=True, port=5505)

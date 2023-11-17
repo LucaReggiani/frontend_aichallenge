@@ -63,6 +63,32 @@ write here if you want to add css links only in this page
                 <h2 class="section-heading" id="book-description-title">Book Description</h2>
                 <p id="book-description">{{ book.description }}</p>
             </div>
+
+            <div class="col-md-10 col-lg-8 mx-auto mt-5">
+                <h2 class="mb-4">Write a Review</h2>
+                {% if userId %}
+                    {% include 'forms/review_book_form.html' %}
+                {% else %}
+                    <h5>In order to write your review, log in.</h5>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            {% for review in book_reviews %}
+                <div class="col-md-10 col-lg-8 mx-auto mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title d-inline">{{ review.user_name }}</h5>
+                                <span class="badge bg-secondary ms-2">{{ review.rating }}</span>
+                            </div>
+                            {% if review.review_description %}
+                            <div class="card-body">
+                                <p class="card-text">{{ review.review_description }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </article>

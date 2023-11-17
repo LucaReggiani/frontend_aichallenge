@@ -1,0 +1,14 @@
+<form action="{{ url_for('user_review', book_id=book.bookId) }}" method="POST">
+    {{ form_review_book.hidden_tag() }}
+    <div class="mb-3">
+        <label for="{{ form_review_book.rating.id }}" class="form-label">{{ form_review_book.rating.label }}</label>
+        {{ form_review_book.rating(class="form-select", id=form_review_book.rating.id) }}
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form_review_book.review.id }}" class="form-label">{{ form_review_book.review.label }}</label>
+        {{ form_review_book.review(class="form-control", id=form_review_book.review.id) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
