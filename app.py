@@ -81,8 +81,14 @@ def book_details(id_book):
         # response payload extraction
         data = response_get_book_details.json()
 
+        # main book extraction
+        main_book = data[0]
+
+        # main book removal from the response
+        data.pop(0)
+
         # book's page forms initialization
-        form_edit_book = EditBookForm(obj=data)
+        form_edit_book = EditBookForm(obj=main_book)
         form_review_book = ReviewBookForm()
 
         # getting all book's reviews information
@@ -91,7 +97,14 @@ def book_details(id_book):
 
         # Checking if the user il logged in
         userId = session.get('userId', None)
-        return render_template('book_page.html', book=data, form_edit_book=form_edit_book, is_admin=is_admin, form_review_book=form_review_book, book_reviews=book_reviews, userId=userId)
+        return render_template('book_page.html', 
+                               book=main_book,
+                               suggested_books=data, 
+                               form_edit_book=form_edit_book, 
+                               is_admin=is_admin, 
+                               form_review_book=form_review_book, 
+                               book_reviews=book_reviews, 
+                               userId=userId)
     
     else:
         edited_book = request.form.to_dict(flat=False)
