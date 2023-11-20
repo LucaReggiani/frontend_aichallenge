@@ -14,3 +14,18 @@
 .custom-link:hover {
     color: #007bff; /* Change the color on hover */
 }
+
+.book-details {
+  display: grid;
+  grid-template-columns: max-content 1fr; /* Adjust the width as needed */
+  grid-gap: 10px; /* Adjust the gap between label and value as needed */
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin: 0;
+  color: #6c757d; /* Adjust the color as needed */
+}

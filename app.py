@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, jsonify, render_template, request, session
 import requests
 from forms.add_book_form import AddBookForm
 from forms.edit_book_form import EditBookForm
@@ -184,7 +184,20 @@ def user_login():
 
         if email: # if user is logged
             name = session.get('name')
-            return render_template('user_page.html', name=name)
+
+            user_id = {
+                "userId": session.get('userId'),
+            }
+            
+            # retrieving user's cart
+            resp = requests.get(
+                    "http://127.0.0.1:5000/cart", json=user_id
+            )
+            
+            # response payload extraction
+            cart_books = resp.json()
+
+            return render_template('user_page.html', name=name, cart_books=cart_books)
         else:
             form_login = LoginForm()
             return render_template('login.html', form_login=form_login, message="")

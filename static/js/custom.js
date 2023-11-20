@@ -72,3 +72,29 @@ function changeOrder() {
         console.error('Error:', error);
     });
 }
+
+
+function addToCart(userId) {
+    // Get the book ID from the data attribute
+    const bookId = document.getElementById('addToCartButton').getAttribute('data-book-id');
+    
+    // Perform the fetch request
+    fetch('http://127.0.0.1:5000/cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({ bookId: bookId, userId: userId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+        // Handle the success response
+        console.log('Item added to cart:');
+        // You can optionally update the UI to indicate success
+        })
+        .catch(error => {
+        // Handle the error
+        console.error('Error adding item to cart:', error);
+        // You can optionally update the UI to indicate an error
+        });
+  }

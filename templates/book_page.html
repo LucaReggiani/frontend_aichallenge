@@ -20,6 +20,13 @@ write here if you want to add css links only in this page
             <div class="col-md-10 col-lg-8 col-xl-8 mx-auto position-relative">
                 <div class="site-heading">
                     <h1 id="book-title">{{ book.title }}</h1><span class="subheading" id="book-author">{{ book.author }}&nbsp;</span>
+                    {% if userId %}
+                    <div class="container mt-3">
+                        <button type="button" class="btn btn-primary" id="addToCartButton" data-book-id="{{book.bookId}}" onclick="addToCart('{{userId}}')">
+                            <i class="bi bi-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -66,30 +73,36 @@ write here if you want to add css links only in this page
 
             <div class="col-md-10 col-lg-8 mx-auto">
                 <h2 class="section-heading">Our suggestions</h2>
-                <div class="row gy-4">
-                    {% for suggested_book in suggested_books %}
-                        <div class="col-lg-4 col-md-6 col-sm-12 book-card">
-                            <div class="card">
-                                <img class="card-img-top card-img-book" src="{{ suggested_book.coverImg }}" style="object-fit: cover; height: 25rem;">
-                                <div class="card-body p-4">
-                                  <h4 class="card-title">{{ suggested_book.title }}</h4>
-                                  <div class="d-flex">
-                                    <div>
-                                      <p class="fw-bold mb-0 card-author">{{ suggested_book.author }}</p>
-                                      <p>Rating:</p>
-                                      <p class="text-muted mb-0 card-rating">{{ suggested_book.rating }}</p>
-                                      <p>Price:</p>
-                                      <p class="text-muted mb-0 card-price">{{ suggested_book.price }}</p>
+                {% if suggested_books %}
+                    <div class="row gy-4">
+                        {% for suggested_book in suggested_books %}
+                            <div class="col-lg-4 col-md-6 col-sm-12 book-card">
+                                <div class="card h-100">
+                                    <img class="card-img-top card-img-book" src="{{ suggested_book.coverImg }}" style="object-fit: cover; height: 25rem;">
+                                    <div class="card-body p-4">
+                                    <h4 class="card-title">{{ suggested_book.title }}</h4>
+                                    <div class="book-details">
+                                        <div class="label">Author:</div>
+                                        <div class="value card-author">{{ book.author }}</div>
+                                    
+                                        <div class="label">Rating:</div>
+                                        <div class="value card-rating">{{ book.rating }}</div>
+                                    
+                                        <div class="label">Price:</div>
+                                        <div class="value card-price">{{ book.price }}</div>
+
                                     </div>
-                                  </div>
-                                  <div class="container mt-5">
-                                        <a href="{{ url_for('book_details', id_book=suggested_book.bookId) }}" class="custom-link card-link">Book's details</a>
+                                    <div class="container mt-5">
+                                            <a href="{{ url_for('book_details', id_book=suggested_book.bookId) }}" class="custom-link card-link">Book's details</a>
+                                        </div>
                                     </div>
-                                </div>
-                              </div>                  
-                        </div>
-                    {% endfor %}
-                </div>
+                                </div>                  
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h5>Because of the lackacy of book's description, our AI tool cannot provide similar books suggestions.</h5>
+                {% endif %}
             </div>
 
             <div class="col-md-10 col-lg-8 mx-auto mt-5">
